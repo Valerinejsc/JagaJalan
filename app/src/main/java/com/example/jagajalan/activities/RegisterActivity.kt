@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.jagajalan.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -41,9 +42,17 @@ class RegisterActivity : AppCompatActivity() {
                 .addOnCompleteListener { task ->
                     binding.btnRegister.isEnabled = true
                     if (task.isSuccessful) {
-                        Toast.makeText(this, "Registrasi berhasil!", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this, LoginActivity::class.java))
-                        finish()
+                        // Simpan nama lengkap sebagai displayName ke Firebase ← tambahkan ini
+                        val profileUpdate = UserProfileChangeRequest.Builder()
+                            .setDisplayName(name)
+                            .build()
+
+                        auth.currentUser?.updateProfile(profileUpdate)
+                            ?.addOnCompleteListener {
+                                Toast.makeText(this, "Registrasi berhasil!", Toast.LENGTH_SHORT).show()
+                                startActivity(Intent(this, LoginActivity::class.java))
+                                finish()
+                            }
                     } else {
                         Toast.makeText(this, "Gagal: ${task.exception?.message}", Toast.LENGTH_LONG).show()
                     }

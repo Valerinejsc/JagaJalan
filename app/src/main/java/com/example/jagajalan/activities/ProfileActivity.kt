@@ -3,11 +3,11 @@ package com.example.jagajalan.activities
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.jagajalan.R
 import com.example.jagajalan.databinding.ActivityProfileBinding
+import com.example.jagajalan.utils.BottomNavHelper
 import com.example.jagajalan.utils.SharedPreferencesHelper
 import com.google.firebase.auth.FirebaseAuth
-import com.example.jagajalan.utils.BottomNavHelper
-import com.example.jagajalan.R
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
@@ -18,12 +18,15 @@ class ProfileActivity : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Tambahkan di onCreate() setelah setContentView
-        BottomNavHelper.setup(this, binding.bottomNavigation, R.id.nav_profile)
-
         val prefsHelper = SharedPreferencesHelper(this)
-        binding.tvEmail.text = prefsHelper.getEmail()
-        binding.tvUserId.text = auth.currentUser?.uid ?: ""
+        val fullName = auth.currentUser?.displayName ?: "Tidak ada nama"
+        val email = prefsHelper.getEmail()
+
+        binding.tvFullName.text = fullName
+        binding.tvEmail.text = email
+        binding.tvAvatar.text = if (fullName.isNotEmpty())
+            fullName[0].uppercaseChar().toString() else "U"
+        binding.tvDisplayName.text = fullName
 
         binding.btnLogout.setOnClickListener {
             auth.signOut()
@@ -31,5 +34,7 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
             finishAffinity()
         }
+
+        BottomNavHelper.setup(this, binding.bottomNavigation, R.id.nav_profile)
     }
 }

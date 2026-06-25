@@ -113,13 +113,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Email"
+                        android:text="Nama Lengkap"
                         android:textSize="12sp"
                         android:textColor="#9E9E9E"
                         android:layout_marginBottom="4dp"/>
 
                     <TextView
-                        android:id="@+id/tvEmail"
+                        android:id="@+id/tvFullName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="15sp"
@@ -135,17 +135,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="User ID"
+                        android:text="Email"
                         android:textSize="12sp"
                         android:textColor="#9E9E9E"
                         android:layout_marginBottom="4dp"/>
 
                     <TextView
-                        android:id="@+id/tvUserId"
+                        android:id="@+id/tvEmail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="13sp"
-                        android:textColor="#757575"/>
+                        android:textSize="15sp"
+                        android:textColor="#424242"/>
 
                 </LinearLayout>
 
